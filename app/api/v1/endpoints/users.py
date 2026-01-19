@@ -18,6 +18,88 @@ from app.services.nutrition_calculator import NutritionTargets, get_nutrition_ta
 
 router = APIRouter()
 
+@router.get("/me/profile", response_model=UserProfile)
+def get_my_profile(
+    account: AuthAccount = Depends(deps.get_current_account),
+    db: Session = Depends(deps.get_db),
+):
+    if not account.user_id:
+        # 未建立 Profile 時回傳空白預設值
+        return UserProfile(
+            id=account.id, name="", age=0, gender="male", height_cm=0.0, weight_kg=0.0,
+            health_goals=[], lifestyle={}, bmi=0.0
+        )
+    
+    user = db.query(User).filter(User.id == account.user_id).first()
+    if not user:
+        return UserProfile(
+            id=account.id, name="", age=0, gender="male", height_cm=0.0, weight_kg=0.0,
+            health_goals=[], lifestyle={}, bmi=0.0
+        )
+        
+    bmi = user.weight_kg / ((user.height_cm / 100) ** 2) if user.height_cm > 0 else 0.0
+    return UserProfile(
+            id=user.id, name=user.name, age=user.age, gender=user.gender,
+            height_cm=user.height_cm, weight_kg=user.weight_kg,
+            health_goals=user.health_goals, lifestyle=user.lifestyle_data,
+            bmi=bmi
+        )
+
+@router.get("/me/nutrition-targets", response_model=NutritionTargets)
+async def get_my_nutrition_targets(
+    account: AuthAccount = Depends(deps.get_current_account),
+    db: Session = Depends(deps.get_db),
+):
+    # 憑使用者資料計算營養目標
+    if not account.user_id:
+        return NutritionTargets(calories=2000, protein=100, carbs=250, fat=65, fiber=25)
+    
+    user = db.query(User).filter(User.id == account.user_id).first()
+    if not user or not all([user.weight_kg, user.height_cm, user.age, user.gender]):
+        return NutritionTargets(calories=2000, protein=100, carbs=250, fat=65, fiber=25)
+    
+    return get_nutrition_targets_from_user(user)
+
+@router.get("/me/dashboard", response_model=UserDashboardResponse)
+def get_my_dashboard(
+    account: AuthAccount = Depends(deps.get_current_account),
+    db: Session = Depends(deps.get_db),
+):
+    # 如果未建立 Profile 回傳 400 錯誤
+    if not account.user_id:
+        return UserDashboardResponse(
+            user_id="guest", latest_record_date=None, health_score=None,
+            key_metrics=[], abnormal_items=[], history=[], ai_report=None
+        )
+
+    user = db.query(User).filter(User.id == account.user_id).first()
+    if not user:
+        return UserDashboardResponse(
+            user_id=account.id, latest_record_date=None, health_score=None,
+            key_metrics=[], abnormal_items=[], history=[], ai_report=None
+        )
+
+    # ... 後續複雜邏輯暫時注釋 ...
+    # 預計整合 AI 分析 API 相關功能
+    return UserDashboardResponse(
+        user_id=user.id, latest_record_date=None, health_score=None,
+        key_metrics=[], abnormal_items=[], history=[], ai_report=None
+    )
+
+@router.post("/", response_model=UserProfile)
+def create_user(
+    user_in: UserProfileCreate,
+    account: Optional[AuthAccount] = Depends(deps.get_current_account_optional),
+    db: Session = Depends(deps.get_db),
+):
+    existing_user = db.query(User).filter(User.name == user_in.name).first()
+    if existing_user:
+        existing_user.age = user_in.age
+        existing_user.weight_kg = user_in.weight_kg
+        existing_user.height_cm = user_in.height_cm
+        existing_user.health_goals = user_in.health_goals
+        if user_in.lifestyle:
+
 
 def _parse_reference_range(reference_range: Optional[str]) -> Tuple[Optional[float], Optional[float]]:
     if not reference_range:

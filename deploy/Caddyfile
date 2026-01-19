@@ -6,6 +6,14 @@
 {$APP_DOMAIN} {
   encode gzip zstd
 
+  # 禁用快取：這些檔案需要即時更新
+  @nocache path /index.html /flutter_service_worker.js /manifest.json /version.json
+  header @nocache {
+    Cache-Control "no-cache, no-store, must-revalidate"
+    Pragma "no-cache"
+    Expires "0"
+  }
+
   # API + docs routes (must come before SPA fallback)
   @api path /api/* /docs* /openapi.json /health
   handle @api {
