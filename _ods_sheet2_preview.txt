@@ -1,0 +1,8 @@
+sheet: 工作表2
+columns_count: 0
+sample_columns:
+
+head:
+Empty DataFrame
+Columns: []
+Index: []

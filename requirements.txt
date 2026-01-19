@@ -1,0 +1,20 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic-settings
+pydantic[email]
+httpx
+python-dotenv
+sqlalchemy
+psycopg2-binary
+pandas
+pillow
+google-generativeai
+PyJWT
+
+# Web UI
+streamlit
+streamlit-extras
+
+# Optional (for Web UI smoke tests)
+playwright

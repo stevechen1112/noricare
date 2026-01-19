@@ -1,0 +1,55 @@
+{
+  "test_time": "2026-01-17 21:51:38",
+  "models": {
+    "gemini-3-flash-preview": {
+      "ocr_tests": [
+        {
+          "image": "40108.jpg",
+          "success": true,
+          "time": 9.49,
+          "field_count": 10,
+          "response_length": 778
+        },
+        {
+          "image": "40109.jpg",
+          "success": true,
+          "time": 20.32,
+          "field_count": 10,
+          "response_length": 804
+        }
+      ],
+      "report_generation": {
+        "success": true,
+        "time": 11.13,
+        "word_count": 1062,
+        "quality_score": 5,
+        "preview": "您好，我是您的營養師。根據您的健檢數據，空腹血糖 117 mg/dL 與糖化血色素 (HbA1c) 5.8% 均已進入**「糖尿病前期」**的範圍（HbA1c 正常值 < 5.7%）。這是一個重要的警訊，但也是逆轉健康的黃金期。\n\n您的 BMI 24.6 略高於台灣成人的理想範圍（18.5-24），若能降低 5-7% 的體重，對血糖穩定會有顯著幫助。以下為您整理的營養建議：\n\n### 一、 飲食建..."
+      }
+    },
+    "gemini-3-pro-preview": {
+      "ocr_tests": [
+        {
+          "image": "40108.jpg",
+          "success": true,
+          "time": 38.21,
+          "field_count": 10,
+          "response_length": 654
+        },
+        {
+          "image": "40109.jpg",
+          "success": true,
+          "time": 44.61,
+          "field_count": 10,
+          "response_length": 844
+        }
+      ],
+      "report_generation": {
+        "success": true,
+        "time": 27.8,
+        "word_count": 1187,
+        "quality_score": 5,
+        "preview": "你好！我是你的營養師。\n\n根據你的健檢報告，我們看到了幾個關鍵訊號：**空腹血糖 117 mg/dL** 與 **糖化血色素 5.8%**，這兩項數據皆已落入**「糖尿病前期（Pre-diabetes）」**的範圍；加上 BMI 24.6 屬於**過重**，這通常伴隨著「胰島素阻抗」的問題。\n\n好消息是，你的腎功能（肌酸酐 1.05）目前完全正常，且只要在這個階段積極介入，血糖完全有機會逆轉回到正..."
+      }
+    }
+  }
+}

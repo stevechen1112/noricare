@@ -1,0 +1,45 @@
+name: personal_health_app
+version: 1.0.0+1
+description: Personal Health AI Agent - 精準個人化健康管理 App
+publish_to: "none"
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  flutter_riverpod: ^2.5.1
+  dio: ^5.7.0
+  fl_chart: ^0.68.0
+  image_picker: ^1.1.2
+  shared_preferences: ^2.2.2
+  flutter_markdown: ^0.7.4
+  shimmer: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.8
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+  adaptive_icon_background: "#6B8E23"
+  adaptive_icon_foreground: "assets/icon/app_icon_foreground.png"
+
+flutter_native_splash:
+  color: "#FAF9F6"
+  image: "assets/splash/splash_logo.png"
+  android: true
+  ios: true
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icon/
+    - assets/splash/

@@ -1,0 +1,154 @@
+/* Global Settings */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;700&display=swap');
+
+:root {
+    --primary-color: #6B8E23; /* Olive Drab - Earthy Green */
+    --secondary-color: #F5F5DC; /* Beige */
+    --accent-color: #D2691E; /* Chocolate - for highlights */
+    --text-color: #4A4A4A;
+    --background-c: #FAF9F6; /* Off-white */
+    --card-bg: #FFFFFF;
+}
+
+/* Override Streamlit's default background */
+.stApp {
+    background-color: var(--background-c);
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--text-color);
+}
+
+/* Headers - Make them feel friendly and rounded */
+h1, h2, h3 {
+    font-family: 'Zen Maru Gothic', sans-serif !important;
+    color: var(--primary-color) !important;
+    font-weight: 700 !important;
+}
+
+h1 {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+/* Custom Card Style for Advice */
+.lifestyle-card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-left: 5px solid var(--primary-color);
+    transition: transform 0.2s;
+}
+
+.lifestyle-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+.card-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    white-space: pre-line; /* Handle newlines */
+}
+
+/* Buttons - Soft and Rounded */
+.stButton>button {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50px;
+    border: none;
+    padding: 0.5rem 2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.stButton>button:hover {
+    background-color: #556B2F;
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+    transform: scale(1.05);
+}
+
+/* Input Fields - Clean and Minimal */
+.stTextInput>div>div>input {
+    border-radius: 15px;
+    border: 1px solid #E0E0E0;
+    padding: 10px 15px;
+}
+
+/* Highlighting Abnormal Values */
+.metric-fail {
+    color: #D32F2F;
+    font-weight: bold;
+}
+.metric-pass {
+    color: #388E3C;
+    font-weight: bold;
+}
+
+/* Chat/Advice Bubbles */
+.chat-bubble {
+    background-color: #F0F4C3; /* Very light green */
+    border-radius: 15px 15px 15px 0px;
+    padding: 15px;
+    margin: 10px 0;
+    color: #33691E;
+}
+
+/* Stepper (Top Progress) */
+.stepper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 10px 0 20px 0;
+    flex-wrap: wrap;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #9E9E9E;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.step .circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #DADADA;
+    background: #FFFFFF;
+    font-size: 0.95rem;
+}
+
+.step.active {
+    color: var(--primary-color);
+}
+
+.step.active .circle {
+    border-color: var(--primary-color);
+    background: #F0F4C3;
+}
+
+.step-line {
+    width: 40px;
+    height: 2px;
+    background: #E0E0E0;
+}
+
+.step-line.active {
+    background: var(--primary-color);
+}

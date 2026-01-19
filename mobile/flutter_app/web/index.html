@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Your personal companion for photo-based meal logging and nutrition guidance.">
+  <meta name="theme-color" content="#4CAF50">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="NoriCare">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>NoriCare</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    #pwa-install {
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      padding: 12px 16px;
+      display: none;
+      z-index: 9999;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+    #pwa-install .row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    #pwa-install .title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+    }
+    #pwa-install .desc {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+    #pwa-install button {
+      background: #4CAF50;
+      color: #ffffff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    #pwa-install .close {
+      background: transparent;
+      color: #6b7280;
+      border: none;
+      font-size: 16px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="pwa-install">
+    <div class="row">
+      <div style="flex:1">
+        <div class="title">安裝 NoriCare</div>
+        <div class="desc">新增到主畫面，像 App 一樣使用</div>
+      </div>
+      <button id="pwa-install-btn">安裝</button>
+      <button class="close" id="pwa-install-close">×</button>
+    </div>
+  </div>
+  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    let deferredPrompt = null;
+    const banner = document.getElementById('pwa-install');
+    const installBtn = document.getElementById('pwa-install-btn');
+    const closeBtn = document.getElementById('pwa-install-close');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (banner) banner.style.display = 'block';
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        if (banner) banner.style.display = 'none';
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        if (banner) banner.style.display = 'none';
+      });
+    }
+  </script>
+</body>
+</html>

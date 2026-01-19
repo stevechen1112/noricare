@@ -1,0 +1,23 @@
+# Run these on Linode (Ubuntu / bash)
+
+# 0) (Optional) confirm domain points to this server
+# sudo apt-get update && sudo apt-get install -y dnsutils
+# dig +short your-domain.example.com
+
+# 1) Clone repo
+# git clone <your-repo-url> personalhealth
+# cd personalhealth
+
+# 2) Prepare env
+cd personalhealth/deploy
+cp .env.linode.example .env.linode
+nano .env.linode
+
+# 3) Start
+docker compose --env-file .env.linode -f docker-compose.linode.yml up -d --build
+
+# 4) Verify
+curl -s https://$APP_DOMAIN/health
+
+# 5) Logs
+docker compose --env-file .env.linode -f docker-compose.linode.yml logs -f --tail 200

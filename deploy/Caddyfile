@@ -1,0 +1,21 @@
+{
+  # Change to a real email for Let's Encrypt
+  email {$ACME_EMAIL}
+}
+
+{$APP_DOMAIN} {
+  encode gzip zstd
+
+  # API + docs routes (must come before SPA fallback)
+  @api path /api/* /docs* /openapi.json /health
+  handle @api {
+    reverse_proxy api:8000
+  }
+
+  # Flutter web build output (SPA)
+  handle {
+    root * /srv/web
+    try_files {path} /index.html
+    file_server
+  }
+}
